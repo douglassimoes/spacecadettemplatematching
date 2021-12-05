@@ -9,7 +9,7 @@ class WindowCapture:
     h = 0
     hwnd = None
 
-    def __init__(self, window_name):
+    def __init__(self, window_name, window_offset_upandown=0,window_offset_rightandleft=0):
         # Find the handle for the window we want to capture
         self.hwnd = win32gui.FindWindow(None, window_name)
         if not self.hwnd:
@@ -17,8 +17,8 @@ class WindowCapture:
 
         # Get the window size
         window_rect = win32gui.GetWindowRect(self.hwnd)
-        self.w = window_rect[2] - window_rect[0]
-        self.h = window_rect[3] - window_rect[1]
+        self.w = window_rect[2] - window_rect[0] - window_offset_rightandleft
+        self.h = window_rect[3] - window_rect[1] - window_offset_upandown
 
     def get_screenshot(self):
 
